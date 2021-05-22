@@ -7,16 +7,8 @@
 
 import SwiftUI
 
-class DetailsPresenter: ObservableObject {
-    let viewModel: GrapeViewModel
-    init(viewModel: GrapeViewModel) {
-        self.viewModel = viewModel
-    }
-}
-
 struct DetailsView: View {
     @StateObject var presenter: DetailsPresenter
-    @State private var isPresentingExtraDetails: Bool = false
 
     var body: some View {
         ScrollView {
@@ -48,12 +40,9 @@ struct DetailsView: View {
         }
         .navigationTitle("Details")
         .toolbar {
-            Button("Show Regions") {
-                self.isPresentingExtraDetails = true
+            presenter.makeModalExtraDetailsView(viewModel: presenter.viewModel) {
+                Text("Show Regions")
             }
-        }
-        .sheet(isPresented: $isPresentingExtraDetails) {
-            ExtraDetailsView.make()
         }
     }
 }

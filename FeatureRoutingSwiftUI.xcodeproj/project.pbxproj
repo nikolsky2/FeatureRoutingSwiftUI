@@ -16,6 +16,13 @@
 		F54533D126591A6B00801605 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54533CF26591A6A00801605 /* PieChartView.swift */; };
 		F54533D226591A6B00801605 /* PieSliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54533D026591A6B00801605 /* PieSliceView.swift */; };
 		F54533D42659201300801605 /* ExtraDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54533D32659201300801605 /* ExtraDetailsView.swift */; };
+		F5F5C40926593F930046A090 /* View+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C40826593F930046A090 /* View+Modifier.swift */; };
+		F5F5C40B26594A740046A090 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C40A26594A740046A090 /* RootRouter.swift */; };
+		F5F5C40D26594ADB0046A090 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C40C26594ADB0046A090 /* RootPresenter.swift */; };
+		F5F5C4122659504D0046A090 /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C4112659504D0046A090 /* DetailsPresenter.swift */; };
+		F5F5C4142659509A0046A090 /* DetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C4132659509A0046A090 /* DetailsRouter.swift */; };
+		F5F5C4172659512D0046A090 /* ExtraDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C4162659512D0046A090 /* ExtraDetailsRouter.swift */; };
+		F5F5C419265952870046A090 /* ExtraDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F5C418265952870046A090 /* ExtraDetailsPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +37,13 @@
 		F54533CF26591A6A00801605 /* PieChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		F54533D026591A6B00801605 /* PieSliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieSliceView.swift; sourceTree = "<group>"; };
 		F54533D32659201300801605 /* ExtraDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraDetailsView.swift; sourceTree = "<group>"; };
+		F5F5C40826593F930046A090 /* View+Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modifier.swift"; sourceTree = "<group>"; };
+		F5F5C40A26594A740046A090 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		F5F5C40C26594ADB0046A090 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
+		F5F5C4112659504D0046A090 /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
+		F5F5C4132659509A0046A090 /* DetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsRouter.swift; sourceTree = "<group>"; };
+		F5F5C4162659512D0046A090 /* ExtraDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraDetailsRouter.swift; sourceTree = "<group>"; };
+		F5F5C418265952870046A090 /* ExtraDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraDetailsPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,12 +76,11 @@
 		F535F9A12658F1D600C04711 /* FeatureRoutingSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				F5F5C40F26594F500046A090 /* Features */,
+				F5F5C40726593F820046A090 /* Extensions */,
 				F54533CE26591A5B00801605 /* PieChart */,
 				F535F9A22658F1D600C04711 /* FeatureRoutingSwiftUIApp.swift */,
 				F535F9A42658F1D600C04711 /* ContentView.swift */,
-				F535F9B12658F62F00C04711 /* RootView.swift */,
-				F535F9B32658F91100C04711 /* DetailsView.swift */,
-				F54533D32659201300801605 /* ExtraDetailsView.swift */,
 				F535F9A62658F1D600C04711 /* Assets.xcassets */,
 				F535F9AB2658F1D600C04711 /* Info.plist */,
 				F535F9A82658F1D600C04711 /* Preview Content */,
@@ -90,6 +103,54 @@
 				F54533D026591A6B00801605 /* PieSliceView.swift */,
 			);
 			path = PieChart;
+			sourceTree = "<group>";
+		};
+		F5F5C40726593F820046A090 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F5F5C40826593F930046A090 /* View+Modifier.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F5F5C40E26594AFC0046A090 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				F5F5C40A26594A740046A090 /* RootRouter.swift */,
+				F5F5C40C26594ADB0046A090 /* RootPresenter.swift */,
+				F535F9B12658F62F00C04711 /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		F5F5C40F26594F500046A090 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				F5F5C40E26594AFC0046A090 /* Root */,
+				F5F5C410265950440046A090 /* Details */,
+				F5F5C415265950C50046A090 /* ExtraDetails */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		F5F5C410265950440046A090 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				F535F9B32658F91100C04711 /* DetailsView.swift */,
+				F5F5C4112659504D0046A090 /* DetailsPresenter.swift */,
+				F5F5C4132659509A0046A090 /* DetailsRouter.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		F5F5C415265950C50046A090 /* ExtraDetails */ = {
+			isa = PBXGroup;
+			children = (
+				F54533D32659201300801605 /* ExtraDetailsView.swift */,
+				F5F5C4162659512D0046A090 /* ExtraDetailsRouter.swift */,
+				F5F5C418265952870046A090 /* ExtraDetailsPresenter.swift */,
+			);
+			path = ExtraDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,9 +222,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5F5C40D26594ADB0046A090 /* RootPresenter.swift in Sources */,
+				F5F5C4172659512D0046A090 /* ExtraDetailsRouter.swift in Sources */,
+				F5F5C4142659509A0046A090 /* DetailsRouter.swift in Sources */,
 				F535F9A52658F1D600C04711 /* ContentView.swift in Sources */,
 				F54533D126591A6B00801605 /* PieChartView.swift in Sources */,
 				F54533D226591A6B00801605 /* PieSliceView.swift in Sources */,
+				F5F5C419265952870046A090 /* ExtraDetailsPresenter.swift in Sources */,
+				F5F5C40926593F930046A090 /* View+Modifier.swift in Sources */,
+				F5F5C4122659504D0046A090 /* DetailsPresenter.swift in Sources */,
+				F5F5C40B26594A740046A090 /* RootRouter.swift in Sources */,
 				F535F9B42658F91100C04711 /* DetailsView.swift in Sources */,
 				F535F9A32658F1D600C04711 /* FeatureRoutingSwiftUIApp.swift in Sources */,
 				F535F9B22658F62F00C04711 /* RootView.swift in Sources */,

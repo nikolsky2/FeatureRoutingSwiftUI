@@ -7,22 +7,6 @@
 
 import SwiftUI
 
-struct GrapeViewModel: Identifiable {
-    var id = UUID()
-    let title: String
-    let subtitle: String
-}
-
-let mockViewModels: [GrapeViewModel] = [
-    .init(title: "Cabernet Sauvignon", subtitle: "The most famous red wine grape variety on Earth"),
-    .init(title: "Pinot Noir", subtitle: "The dominant red wine grape of Burgundy"),
-    .init(title: "Shiraz", subtitle: "New World Syrah")
-]
-
-class RootPresenter: ObservableObject {
-    @Published var viewModels: [GrapeViewModel] = mockViewModels
-}
-
 struct RootView: View {
     @StateObject var presenter: RootPresenter
 
@@ -30,7 +14,7 @@ struct RootView: View {
         NavigationView {
             List {
                 ForEach(presenter.viewModels) { viewModel in
-                    NavigationLink(destination: DetailsView.make(viewModel: viewModel)) {
+                    presenter.makeDestinationView(viewModel: viewModel) {
                         VStack(alignment: .leading) {
                             Text(viewModel.title)
                                 .font(.system(size: 20))
