@@ -7,8 +7,15 @@
 
 import SwiftUI
 
+class DetailsPresenter: ObservableObject {
+    let viewModel: GrapeViewModel
+    init(viewModel: GrapeViewModel) {
+        self.viewModel = viewModel
+    }
+}
+
 struct DetailsView: View {
-    let title: String
+    @StateObject var presenter: DetailsPresenter
     @State private var isPresentingExtraDetails: Bool = false
 
     var body: some View {
@@ -19,11 +26,22 @@ struct DetailsView: View {
                     Text("Grape variety")
                         .font(.footnote)
                         .foregroundColor(Color(UIColor.secondaryLabel))
-                    Text("\(title)")
+                    Text(presenter.viewModel.title)
                         .font(.headline)
                         .foregroundColor(Color(UIColor.label))
                     Spacer()
                 }
+                .padding()
+                Divider()
+                HStack {
+                    Text("Description")
+                        .font(.footnote)
+                        .foregroundColor(Color(UIColor.secondaryLabel))
+                    Text(presenter.viewModel.subtitle)
+                        .font(.headline)
+                        .foregroundColor(Color(UIColor.label))
+                }
+                .padding()
                 Spacer()
             }
             .padding()
@@ -35,15 +53,24 @@ struct DetailsView: View {
             }
         }
         .sheet(isPresented: $isPresentingExtraDetails) {
-            ExtraDetailsView()
+            ExtraDetailsView.make()
         }
     }
 }
 
+extension DetailsView {
+    static func make(viewModel: GrapeViewModel) -> DetailsView {
+        let presenter = DetailsPresenter(viewModel: viewModel)
+        return DetailsView(presenter: presenter)
+    }
+}
+
+// MARK: - PreviewProvider
+
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailsView(title: "Cabernet Sauvignon")
+            DetailsView.make(viewModel: mockViewModels[0])
         }
     }
 }

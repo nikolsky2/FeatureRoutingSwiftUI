@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-let mockViewModels: [GrapeViewModel] = [
-    .init(title: "Cabernet Sauvignon", subtitle: "The most famous red wine grape variety on Earth"),
-    .init(title: "Pinot Noir", subtitle: "The dominant red wine grape of Burgundy"),
-    .init(title: "Shiraz", subtitle: "New World Syrah")
-]
-
 struct ContentView: View {
     var body: some View {
-        RootView(viewModels: .constant(mockViewModels))
+        RootView.make()
     }
 }
 

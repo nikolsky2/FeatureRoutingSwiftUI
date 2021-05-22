@@ -7,13 +7,26 @@
 
 import SwiftUI
 
+class ExtraDetailsPresenter: ObservableObject {
+
+}
+
 struct ExtraDetailsView: View {
+    @StateObject var presenter: ExtraDetailsPresenter
+
     var body: some View {
         NavigationView {
             PieChartView(viewModels: mockPieChartViewModels)
                 .padding()
                 .navigationTitle("Wine regions")
         }
+    }
+}
+
+extension ExtraDetailsView {
+    static func make() -> ExtraDetailsView {
+        let presenter = ExtraDetailsPresenter()
+        return ExtraDetailsView(presenter: presenter)
     }
 }
 
@@ -25,6 +38,6 @@ private let mockPieChartViewModels = [
 
 struct ExtraDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        ExtraDetailsView()
+        ExtraDetailsView.make()
     }
 }

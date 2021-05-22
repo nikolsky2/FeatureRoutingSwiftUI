@@ -13,14 +13,24 @@ struct GrapeViewModel: Identifiable {
     let subtitle: String
 }
 
+let mockViewModels: [GrapeViewModel] = [
+    .init(title: "Cabernet Sauvignon", subtitle: "The most famous red wine grape variety on Earth"),
+    .init(title: "Pinot Noir", subtitle: "The dominant red wine grape of Burgundy"),
+    .init(title: "Shiraz", subtitle: "New World Syrah")
+]
+
+class RootPresenter: ObservableObject {
+    @Published var viewModels: [GrapeViewModel] = mockViewModels
+}
+
 struct RootView: View {
-    @Binding var viewModels: [GrapeViewModel]
+    @StateObject var presenter: RootPresenter
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModels) { viewModel in
-                    NavigationLink(destination: DetailsView(title: viewModel.title)) {
+                ForEach(presenter.viewModels) { viewModel in
+                    NavigationLink(destination: DetailsView.make(viewModel: viewModel)) {
                         VStack(alignment: .leading) {
                             Text(viewModel.title)
                                 .font(.system(size: 20))
@@ -38,10 +48,17 @@ struct RootView: View {
     }
 }
 
-// MARK: - PREVIEW
+extension RootView {
+    static func make() -> RootView {
+        let presenter = RootPresenter()
+        return RootView(presenter: presenter)
+    }
+}
+
+// MARK: - PreviewProvider
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(viewModels: .constant(mockViewModels))
+        RootView.make()
     }
 }
