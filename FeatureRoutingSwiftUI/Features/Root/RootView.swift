@@ -63,6 +63,21 @@ struct RootView: View {
                                 Text(PresentationStyle.extraDetailsModally.title)
                                 if presenter.presentationStyle == .extraDetailsModally { Image(systemName: "checkmark") }
                             }
+                            Divider()
+                            Text("Deep linking")
+                            Button(action: {
+                                path.append(mockViewModels[0])
+                            }) {
+                                Text("Push programatically")
+                            }
+                            Button(action: {
+                                $path.withDelaysIfUnsupported {
+                                  $0.append(mockViewModels[0])
+                                  $0.append(mockViewModels[1])
+                                }
+                            }) {
+                                Text("Push 2 screens programatically")
+                            }
                         }
                     }
                 }

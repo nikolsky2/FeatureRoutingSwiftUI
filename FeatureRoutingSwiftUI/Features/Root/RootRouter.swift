@@ -8,9 +8,4 @@
 import SwiftUI
 
 @MainActor
-struct RootRouter: DetailsFeatureRouting & ExtraDetailsFeatureRouting {
-
-    
-
-
-}
+struct RootRouter: DetailsFeatureRouting & ExtraDetailsFeatureRouting {}
