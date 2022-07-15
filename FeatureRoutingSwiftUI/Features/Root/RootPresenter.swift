@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationBackport
 
 enum RootViewModel {
     case loading
@@ -78,6 +79,7 @@ enum PresentationStyle {
 class RootPresenter: ObservableObject {
     @Published var viewModel = RootViewModel.loading
     @Published var presentationStyle: PresentationStyle = .detailsStack
+    @Published var path = NBNavigationPath()
 
     private let router: RootRouter
     private let interactor: RootInteracting
@@ -99,14 +101,17 @@ class RootPresenter: ObservableObject {
     }
 
     func makeDestinationView<Label: View>(viewModel: GrapeViewModel,
-                                          dismiss: @escaping () -> Void,
                                           @ViewBuilder label: () -> Label) -> AnyView {
 
         // Dynamic routing is here
 
         switch presentationStyle {
         case .detailsStack:
-            return router.makePushDetailsView(viewModel: viewModel, dismiss: dismiss, label: label)
+            return router.makePushDetailsView(viewModel: viewModel,
+                                              dismiss: {
+                self.path.removeLast(self.path.count)
+            },
+                                              label: label)
         case .detailsModally:
             return router.makeModalDetailsView(viewModel: viewModel, label: label)
         case .extraDetailsModally:

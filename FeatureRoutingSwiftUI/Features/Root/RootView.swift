@@ -10,10 +10,9 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject var presenter: RootPresenter
-    @State private var path = NBNavigationPath()
 
     var body: some View {
-        NBNavigationStack(path: $path) {
+        NBNavigationStack(path: $presenter.path) {
             switch presenter.viewModel {
             case .loading:
                 VStack {
@@ -27,10 +26,7 @@ struct RootView: View {
             case .loaded(let viewModels):
                 List {
                     ForEach(viewModels) { viewModel in
-                        presenter.makeDestinationView(viewModel: viewModel,
-                                                      dismiss: {
-                            path.removeLast(path.count)
-                        }) {
+                        presenter.makeDestinationView(viewModel: viewModel) {
                             VStack(alignment: .leading) {
                                 Text(viewModel.title)
                                     .font(.system(size: 20))
@@ -68,17 +64,18 @@ struct RootView: View {
                             Divider()
                             Text("Deep linking")
                             Button(action: {
-                                path.append(mockViewModels[0])
+                                presenter.path.append(mockViewModels[0])
                             }) {
-                                Text("Push programatically")
+                                Text("Push 1 Screen Programatically")
                             }
                             Button(action: {
-                                $path.withDelaysIfUnsupported {
-                                  $0.append(mockViewModels[0])
-                                  $0.append(mockViewModels[1])
+                                $presenter.path.withDelaysIfUnsupported {
+                                    $0.append(mockViewModels[0])
+                                    $0.append(mockViewModels[1])
+                                    $0.append(mockViewModels[2])
                                 }
                             }) {
-                                Text("Push 2 screens programatically")
+                                Text("Push All screens Programatically")
                             }
                         }
                     }
