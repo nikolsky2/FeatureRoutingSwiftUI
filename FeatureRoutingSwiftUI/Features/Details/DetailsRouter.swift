@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 protocol DetailsFeatureRouting {
     func makePushDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView
     func makeModalDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView

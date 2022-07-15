@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+@MainActor
 class DetailsPresenter: ObservableObject {
-    let viewModel: GrapeViewModel
+    @Published var viewModel: GrapeViewModel
     private let router = DetailsRouter()
     
     init(viewModel: GrapeViewModel) {

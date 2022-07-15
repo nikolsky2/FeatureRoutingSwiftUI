@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 protocol ExtraDetailsFeatureRouting {
     func makeModalExtraDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView
 }

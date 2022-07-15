@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+@MainActor
 class ExtraDetailsPresenter: ObservableObject {
-    let viewModel: GrapeViewModel
+    @Published var viewModel: GrapeViewModel
     init(viewModel: GrapeViewModel) {
         self.viewModel = viewModel
     }

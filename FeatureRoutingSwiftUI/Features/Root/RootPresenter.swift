@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+enum RootViewModel {
+    case loading
+    case loaded([GrapeViewModel])
+
+    var isLoading: Bool {
+        if case .loading = self {
+           return true
+        } else {
+            return false
+        }
+    }
+}
+
 struct GrapeViewModel: Identifiable {
     var id = UUID()
     let title: String
@@ -38,13 +51,64 @@ let mockViewModels: [GrapeViewModel] = [
           ])
 ]
 
-class RootPresenter: ObservableObject {
-    @Published var viewModels: [GrapeViewModel] = mockViewModels
-    private let router = RootRouter()
+extension Array where Element == RootModel {
+    func makeViewModels() -> [GrapeViewModel] {
+        mockViewModels
+    }
+}
 
-    //Note: Intractor is deliberatelly omitted here for the simplicity sake
+enum PresentationStyle {
+    case detailsStack
+    case detailsModally
+    case extraDetailsModally
+
+    var title: String {
+        switch self {
+        case .detailsStack:
+            return "Push Details on Stack"
+        case .detailsModally:
+            return "Show Details Modally"
+        case .extraDetailsModally:
+            return "Show ExtraDetails Modally"
+        }
+    }
+}
+
+@MainActor
+class RootPresenter: ObservableObject {
+    @Published var viewModel = RootViewModel.loading
+    @Published var presentationStyle: PresentationStyle = .detailsStack
+
+    private let router: RootRouter
+    private let interactor: RootInteracting
+
+    init(interactor: RootInteracting, router: RootRouter) {
+        self.interactor = interactor
+        self.router = router
+    }
+
+    func fetch() {
+        Task {
+            do {
+                let models = try await interactor.fetch()
+                self.viewModel = .loaded(models.makeViewModels())
+            } catch {
+                // Error
+            }
+        }
+    }
 
     func makeDestinationView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView {
-        router.makeDestinationView(viewModel: viewModel, label: label)
+
+        // Dynamic routing is here
+
+        switch presentationStyle {
+        case .detailsStack:
+            return router.makePushDetailsView(viewModel: viewModel, label: label)
+        case .detailsModally:
+            return router.makeModalDetailsView(viewModel: viewModel, label: label)
+        case .extraDetailsModally:
+            return router.makeModalExtraDetailsView(viewModel: viewModel, label: label)
+        }
     }
 }
