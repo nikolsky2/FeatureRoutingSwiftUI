@@ -5,14 +5,13 @@ This sample code contains a solution to a problem of decoupling navigation from 
 
 ![Presentation flow](FeatureRoutingSwiftUI.png)
 
-### Update June 2022: 
-Apple introduced at WWDC the new SwiftUI NavigationStack.
+[Supports iOS 14 via NavigationBackport](https://github.com/johnpatrickmorgan/NavigationBackport)
 
-https://developer.apple.com/documentation/swiftui/navigationstack/
+### Update June 2022:
+- Apple introduced at WWDC the new SwiftUI APIs [iOS 16 NavigationStack](https://developer.apple.com/documentation/swiftui/navigationstack/)
+- [WWDC 2022: The SwiftUI cookbook for navigation](https://developer.apple.com/videos/play/wwdc2022/10054/)
 
-[WWDC 2022: The SwiftUI cookbook for navigation](https://developer.apple.com/videos/play/wwdc2022/10054/)
-
-NavigationStack allows separating the destination view from the current visible view, by using the .navigationDestination modifier. It's finally a way of doing a clean coordinator.
+`NavigationStack` allows separating the destination view from the current visible view, by using the .navigationDestination modifier. It's finally a way of doing a clean coordinator.
 
 Thanks for listening @Apple!
 

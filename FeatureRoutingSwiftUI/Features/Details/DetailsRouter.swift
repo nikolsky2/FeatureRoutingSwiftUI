@@ -9,15 +9,19 @@ import SwiftUI
 
 @MainActor
 protocol DetailsFeatureRouting {
-    func makePushDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView
+    func makePushDetailsView<Label: View>(viewModel: GrapeViewModel,
+                                          dismiss: @escaping () -> Void,
+                                          @ViewBuilder label: () -> Label) -> AnyView
     func makeModalDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView
 }
 
 extension DetailsFeatureRouting {
-    func makePushDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView {
+    func makePushDetailsView<Label: View>(viewModel: GrapeViewModel,
+                                          dismiss: @escaping () -> Void,
+                                          @ViewBuilder label: () -> Label) -> AnyView {
         label()
             .makeNavigation(value: viewModel) { viewModel in
-                DetailsView.make(viewModel: viewModel)
+                DetailsView.make(viewModel: viewModel, dismiss: dismiss)
             }
             .anyView
     }
@@ -26,7 +30,7 @@ extension DetailsFeatureRouting {
         label()
             .makeSheet {
                 NavigationView {
-                    DetailsView.make(viewModel: viewModel)
+                    DetailsView.make(viewModel: viewModel) {}
                 }
             }
             .anyView

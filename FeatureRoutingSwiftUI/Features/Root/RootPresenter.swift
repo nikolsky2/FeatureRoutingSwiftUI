@@ -98,13 +98,15 @@ class RootPresenter: ObservableObject {
         }
     }
 
-    func makeDestinationView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView {
+    func makeDestinationView<Label: View>(viewModel: GrapeViewModel,
+                                          dismiss: @escaping () -> Void,
+                                          @ViewBuilder label: () -> Label) -> AnyView {
 
         // Dynamic routing is here
 
         switch presentationStyle {
         case .detailsStack:
-            return router.makePushDetailsView(viewModel: viewModel, label: label)
+            return router.makePushDetailsView(viewModel: viewModel, dismiss: dismiss, label: label)
         case .detailsModally:
             return router.makeModalDetailsView(viewModel: viewModel, label: label)
         case .extraDetailsModally:

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DetailsView: View {
     @StateObject var presenter: DetailsPresenter
+    let dismiss: () -> Void
 
     var body: some View {
         ScrollView {
@@ -37,6 +38,18 @@ struct DetailsView: View {
                 Spacer()
             }
             .padding()
+            Button(action: {
+                dismiss()
+            }) {
+                Text("Programatic Pop")
+                    .fontWeight(.medium)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 44)
+            .foregroundColor(.white)
+            .background(Color.orange)
+            .cornerRadius(6)
+            .padding()
         }
         .navigationTitle("Details")
         .toolbar {
@@ -48,9 +61,9 @@ struct DetailsView: View {
 }
 
 extension DetailsView {
-    static func make(viewModel: GrapeViewModel) -> DetailsView {
+    static func make(viewModel: GrapeViewModel, dismiss: @escaping () -> Void) -> DetailsView {
         let presenter = DetailsPresenter(viewModel: viewModel)
-        return DetailsView(presenter: presenter)
+        return DetailsView(presenter: presenter, dismiss: dismiss)
     }
 }
 
@@ -59,7 +72,7 @@ extension DetailsView {
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DetailsView.make(viewModel: mockViewModels[0])
+            DetailsView.make(viewModel: mockViewModels[0], dismiss: {})
         }
     }
 }

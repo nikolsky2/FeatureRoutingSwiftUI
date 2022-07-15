@@ -10,8 +10,7 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject var presenter: RootPresenter
-
-    @State var path = NBNavigationPath()
+    @State private var path = NBNavigationPath()
 
     var body: some View {
         NBNavigationStack(path: $path) {
@@ -28,7 +27,10 @@ struct RootView: View {
             case .loaded(let viewModels):
                 List {
                     ForEach(viewModels) { viewModel in
-                        presenter.makeDestinationView(viewModel: viewModel) {
+                        presenter.makeDestinationView(viewModel: viewModel,
+                                                      dismiss: {
+                            path.removeLast(path.count)
+                        }) {
                             VStack(alignment: .leading) {
                                 Text(viewModel.title)
                                     .font(.system(size: 20))
