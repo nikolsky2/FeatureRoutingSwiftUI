@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationBackport
 
 extension View {
     var anyView: AnyView {
@@ -16,10 +17,12 @@ extension View {
         modifier(SheetPresentationModifier(destination: destination))
     }
 
-    func makeNavigation<T: View>(destination: @escaping () -> T) -> some View {
-        NavigationLink(
-            destination: destination()) {
+    func makeNavigation<P: Hashable, T: View>(value: P, destination: @escaping (P) -> T) -> some View {
+        NBNavigationLink(value: value) {
             self
+            .nbNavigationDestination(for: P.self, destination: { value in
+                destination(value)
+            })
         }
     }
 }

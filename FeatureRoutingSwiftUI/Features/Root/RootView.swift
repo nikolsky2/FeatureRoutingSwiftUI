@@ -5,13 +5,16 @@
 //  Created by Sergey Nikolsky on 22/5/21.
 //
 
+import NavigationBackport
 import SwiftUI
 
 struct RootView: View {
     @StateObject var presenter: RootPresenter
 
+    @State var path = NBNavigationPath()
+
     var body: some View {
-        NavigationView {
+        NBNavigationStack(path: $path) {
             switch presenter.viewModel {
             case .loading:
                 VStack {

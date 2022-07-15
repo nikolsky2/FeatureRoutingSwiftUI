@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PieChartViewModel {
+struct PieChartViewModel: Hashable {
     let value: Double
     let name: String
     let color: Color

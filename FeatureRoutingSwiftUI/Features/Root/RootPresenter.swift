@@ -20,7 +20,7 @@ enum RootViewModel {
     }
 }
 
-struct GrapeViewModel: Identifiable {
+struct GrapeViewModel: Hashable, Identifiable {
     var id = UUID()
     let title: String
     let subtitle: String

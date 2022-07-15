@@ -16,7 +16,7 @@ protocol DetailsFeatureRouting {
 extension DetailsFeatureRouting {
     func makePushDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView {
         label()
-            .makeNavigation {
+            .makeNavigation(value: viewModel) { viewModel in
                 DetailsView.make(viewModel: viewModel)
             }
             .anyView
