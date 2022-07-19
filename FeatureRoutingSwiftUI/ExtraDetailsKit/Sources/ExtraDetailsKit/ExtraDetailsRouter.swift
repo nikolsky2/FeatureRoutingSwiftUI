@@ -14,6 +14,7 @@ protocol ExtraDetailsFeatureRouting {
     func makeModalExtraDetailsView<Label: View>(viewModel: ExtraDetailsViewModel, @ViewBuilder label: () -> Label) -> AnyView
 }
 
+public
 extension ExtraDetailsFeatureRouting {
     func makeModalExtraDetailsView<Label: View>(viewModel: ExtraDetailsViewModel, @ViewBuilder label: () -> Label) -> AnyView {
         label()

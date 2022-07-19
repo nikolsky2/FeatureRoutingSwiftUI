@@ -12,6 +12,9 @@
 		F50ED5B0288101CE00AECC07 /* RootAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50ED5AF288101CE00AECC07 /* RootAPIClient.swift */; };
 		F50ED5B2288101E700AECC07 /* RootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50ED5B1288101E700AECC07 /* RootModel.swift */; };
 		F50ED5B628817DE700AECC07 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F50ED5B528817DE700AECC07 /* README.md */; };
+		F53335C328866EC300991F1C /* DetailsKit in Frameworks */ = {isa = PBXBuildFile; productRef = F53335C228866EC300991F1C /* DetailsKit */; };
+		F53335C528866EC300991F1C /* ExtraDetailsKit in Frameworks */ = {isa = PBXBuildFile; productRef = F53335C428866EC300991F1C /* ExtraDetailsKit */; };
+		F53335C728866EC300991F1C /* UIExtensionsKit in Frameworks */ = {isa = PBXBuildFile; productRef = F53335C628866EC300991F1C /* UIExtensionsKit */; };
 		F535F9A32658F1D600C04711 /* FeatureRoutingSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F535F9A22658F1D600C04711 /* FeatureRoutingSwiftUIApp.swift */; };
 		F535F9A52658F1D600C04711 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F535F9A42658F1D600C04711 /* ContentView.swift */; };
 		F535F9A72658F1D600C04711 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F535F9A62658F1D600C04711 /* Assets.xcassets */; };
@@ -45,6 +48,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F53335C328866EC300991F1C /* DetailsKit in Frameworks */,
+				F53335C728866EC300991F1C /* UIExtensionsKit in Frameworks */,
+				F53335C528866EC300991F1C /* ExtraDetailsKit in Frameworks */,
 				F50ED5AB2880EA2F00AECC07 /* NavigationBackport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,12 +58,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F53335C128866EC300991F1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F535F9962658F1D600C04711 = {
 			isa = PBXGroup;
 			children = (
 				F50ED5B528817DE700AECC07 /* README.md */,
 				F535F9A12658F1D600C04711 /* FeatureRoutingSwiftUI */,
 				F535F9A02658F1D600C04711 /* Products */,
+				F53335C128866EC300991F1C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +146,9 @@
 			name = FeatureRoutingSwiftUI;
 			packageProductDependencies = (
 				F50ED5AA2880EA2F00AECC07 /* NavigationBackport */,
+				F53335C228866EC300991F1C /* DetailsKit */,
+				F53335C428866EC300991F1C /* ExtraDetailsKit */,
+				F53335C628866EC300991F1C /* UIExtensionsKit */,
 			);
 			productName = FeatureRoutingSwiftUI;
 			productReference = F535F99F2658F1D600C04711 /* FeatureRoutingSwiftUI.app */;
@@ -401,6 +418,18 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F50ED5A92880EA2F00AECC07 /* XCRemoteSwiftPackageReference "NavigationBackport" */;
 			productName = NavigationBackport;
+		};
+		F53335C228866EC300991F1C /* DetailsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DetailsKit;
+		};
+		F53335C428866EC300991F1C /* ExtraDetailsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExtraDetailsKit;
+		};
+		F53335C628866EC300991F1C /* UIExtensionsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UIExtensionsKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

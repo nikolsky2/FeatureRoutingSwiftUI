@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationBackport
 import UIExtensionsKit
 import DetailsKit
-import ExtraDetailsViewModel
+import ExtraDetailsKit
 
 enum RootViewModel {
     case loading
