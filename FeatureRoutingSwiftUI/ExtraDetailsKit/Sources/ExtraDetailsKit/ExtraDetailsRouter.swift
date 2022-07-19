@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import UIExtensionsKit
 
 @MainActor
+public
 protocol ExtraDetailsFeatureRouting {
-    func makeModalExtraDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView
+    func makeModalExtraDetailsView<Label: View>(viewModel: ExtraDetailsViewModel, @ViewBuilder label: () -> Label) -> AnyView
 }
 
 extension ExtraDetailsFeatureRouting {
-    func makeModalExtraDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView {
+    func makeModalExtraDetailsView<Label: View>(viewModel: ExtraDetailsViewModel, @ViewBuilder label: () -> Label) -> AnyView {
         label()
             .makeSheet {
                 NavigationView {

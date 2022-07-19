@@ -3,6 +3,9 @@
 ## Problem statement
 This sample code contains a solution to a problem of decoupling navigation from Views written with SwiftUI using VIPER architecture.
 
+- Uses VIPER architecture 
+- @MainActors 
+
 ![Presentation flow](FeatureRoutingSwiftUI.png)
 
 [Supports iOS 14 via NavigationBackport](https://github.com/johnpatrickmorgan/NavigationBackport)

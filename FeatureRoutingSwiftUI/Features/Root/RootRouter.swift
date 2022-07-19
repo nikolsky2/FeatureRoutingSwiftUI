@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import DetailsKit
+import ExtraDetailsKit
 
 @MainActor
 struct RootRouter: DetailsFeatureRouting & ExtraDetailsFeatureRouting {}

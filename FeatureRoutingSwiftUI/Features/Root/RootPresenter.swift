@@ -7,6 +7,9 @@
 
 import SwiftUI
 import NavigationBackport
+import UIExtensionsKit
+import DetailsKit
+import ExtraDetailsViewModel
 
 enum RootViewModel {
     case loading
@@ -26,6 +29,18 @@ struct GrapeViewModel: Hashable, Identifiable {
     let title: String
     let subtitle: String
     let pieChartViewModels: [PieChartViewModel]
+}
+
+extension GrapeViewModel {
+    func makeDetailsViewModel() -> DetailsKit.DetailsViewModel {
+        .init(title: title, subtitle: subtitle)
+    }
+}
+
+extension GrapeViewModel {
+    func makeExtraDetailsViewModel() -> ExtraDetailsKit.ExtraDetailsViewModel {
+        .init(title: title, pieChartViewModels: pieChartViewModels)
+    }
 }
 
 let mockViewModels: [GrapeViewModel] = [
@@ -107,15 +122,15 @@ class RootPresenter: ObservableObject {
 
         switch presentationStyle {
         case .detailsStack:
-            return router.makePushDetailsView(viewModel: viewModel,
+            return router.makePushDetailsView(viewModel: viewModel.makeDetailsViewModel(),
                                               dismiss: {
                 self.path.removeLast(self.path.count)
             },
                                               label: label)
         case .detailsModally:
-            return router.makeModalDetailsView(viewModel: viewModel, label: label)
+            return router.makeModalDetailsView(viewModel: viewModel.makeDetailsViewModel(), label: label)
         case .extraDetailsModally:
-            return router.makeModalExtraDetailsView(viewModel: viewModel, label: label)
+            return router.makeModalExtraDetailsView(viewModel: viewModel.makeExtraDetailsViewModel(), label: label)
         }
     }
 }

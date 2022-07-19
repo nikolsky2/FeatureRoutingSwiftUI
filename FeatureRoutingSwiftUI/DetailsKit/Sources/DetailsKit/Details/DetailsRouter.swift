@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+import UIExtensionsKit
 
 @MainActor
+public
 protocol DetailsFeatureRouting {
-    func makePushDetailsView<Label: View>(viewModel: GrapeViewModel,
+    func makePushDetailsView<Label: View>(viewModel: DetailsViewModel,
                                           dismiss: @escaping () -> Void,
                                           @ViewBuilder label: () -> Label) -> AnyView
-    func makeModalDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView
+    func makeModalDetailsView<Label: View>(viewModel: DetailsViewModel, @ViewBuilder label: () -> Label) -> AnyView
 }
 
 extension DetailsFeatureRouting {
-    func makePushDetailsView<Label: View>(viewModel: GrapeViewModel,
+    func makePushDetailsView<Label: View>(viewModel: DetailsViewModel,
                                           dismiss: @escaping () -> Void,
                                           @ViewBuilder label: () -> Label) -> AnyView {
         label()
@@ -26,15 +28,17 @@ extension DetailsFeatureRouting {
             .anyView
     }
 
-    func makeModalDetailsView<Label: View>(viewModel: GrapeViewModel, @ViewBuilder label: () -> Label) -> AnyView {
-        label()
-            .makeSheet {
-                NavigationView {
-                    DetailsView.make(viewModel: viewModel) {}
-                }
-            }
-            .anyView
+    func makeModalDetailsView<Label: View>(viewModel: DetailsViewModel, @ViewBuilder label: () -> Label) -> AnyView {
+//        label()
+//            .makeSheet {
+//                NavigationView {
+//                    DetailsView.make(viewModel: viewModel) {}
+//                }
+//            }
+//            .anyView
+        fatalError()
     }
 }
 
-struct DetailsRouter: ExtraDetailsFeatureRouting {}
+//struct DetailsRouter: ExtraDetailsFeatureRouting {}
+struct DetailsRouter {}

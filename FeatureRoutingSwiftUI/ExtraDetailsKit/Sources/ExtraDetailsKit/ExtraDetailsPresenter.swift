@@ -9,8 +9,8 @@ import SwiftUI
 
 @MainActor
 class ExtraDetailsPresenter: ObservableObject {
-    @Published var viewModel: GrapeViewModel
-    init(viewModel: GrapeViewModel) {
+    @Published var viewModel: ExtraDetailsViewModel
+    init(viewModel: ExtraDetailsViewModel) {
         self.viewModel = viewModel
     }
 }

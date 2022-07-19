@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationBackport
 
+public
 extension View {
     var anyView: AnyView {
         AnyView(self)

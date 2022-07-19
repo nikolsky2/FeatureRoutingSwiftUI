@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIExtensionsKit
 
 struct ExtraDetailsView: View {
     @StateObject var presenter: ExtraDetailsPresenter
@@ -23,11 +24,20 @@ struct ExtraDetailsView: View {
 }
 
 extension ExtraDetailsView {
-    static func make(viewModel: GrapeViewModel) -> ExtraDetailsView {
+    static func make(viewModel: ExtraDetailsViewModel) -> ExtraDetailsView {
         let presenter = ExtraDetailsPresenter(viewModel: viewModel)
         return ExtraDetailsView(presenter: presenter)
     }
 }
+
+let mockViewModels: [ExtraDetailsViewModel] = [
+    .init(title: "Cabernet Sauvignon",
+          pieChartViewModels: [
+            PieChartViewModel(value: 2, name: "Australia", color: .blue),
+            PieChartViewModel(value: 3, name: "US", color: .green),
+            PieChartViewModel(value: 10, name: "Argentina", color: .orange)
+          ])
+]
 
 struct ExtraDetailsView_Previews: PreviewProvider {
     static var previews: some View {

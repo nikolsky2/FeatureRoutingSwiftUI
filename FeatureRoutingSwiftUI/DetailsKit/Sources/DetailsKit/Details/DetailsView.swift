@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+public
 struct DetailsView: View {
     @StateObject var presenter: DetailsPresenter
     let dismiss: () -> Void
 
+    public
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -53,7 +55,7 @@ struct DetailsView: View {
         }
         .navigationTitle("Details")
         .toolbar {
-            presenter.makeModalExtraDetailsView(viewModel: presenter.viewModel) {
+            presenter.makeExtraDetailsView(viewModel: presenter.viewModel) {
                 Text("Show Regions")
             }
         }
@@ -61,13 +63,19 @@ struct DetailsView: View {
 }
 
 extension DetailsView {
-    static func make(viewModel: GrapeViewModel, dismiss: @escaping () -> Void) -> DetailsView {
+    public
+    static func make(viewModel: DetailsViewModel, dismiss: @escaping () -> Void) -> DetailsView {
         let presenter = DetailsPresenter(viewModel: viewModel)
         return DetailsView(presenter: presenter, dismiss: dismiss)
     }
 }
 
 // MARK: - PreviewProvider
+
+let mockViewModels: [DetailsViewModel] = [
+    .init(title: "Cabernet Sauvignon",
+          subtitle: "The most famous red wine grape variety on Earth")
+]
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {

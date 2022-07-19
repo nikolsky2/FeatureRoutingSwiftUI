@@ -1,13 +1,26 @@
 import SwiftUI
 
+public
 struct PieChartViewModel: Hashable {
     let value: Double
     let name: String
     let color: Color
+
+    public
+    init(value: Double, name: String, color: Color) {
+        self.value = value
+        self.name = name
+        self.color = color
+    }
 }
 
-public struct PieChartView: View {
+public
+struct PieChartView: View {
     let viewModels: [PieChartViewModel]
+
+    public init(viewModels: [PieChartViewModel]) {
+        self.viewModels = viewModels
+    }
 
     private var slices: [PieSliceData] {
         let sum = viewModels.map { $0.value }.reduce(0, +)
