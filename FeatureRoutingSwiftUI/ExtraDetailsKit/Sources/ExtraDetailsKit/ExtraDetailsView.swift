@@ -8,9 +8,11 @@
 import SwiftUI
 import UIExtensionsKit
 
+public
 struct ExtraDetailsView: View {
     @StateObject var presenter: ExtraDetailsPresenter
 
+    public
     var body: some View {
         VStack(alignment: .leading) {
             Text("Wine regions")
@@ -24,6 +26,7 @@ struct ExtraDetailsView: View {
 }
 
 extension ExtraDetailsView {
+    public
     static func make(viewModel: ExtraDetailsViewModel) -> ExtraDetailsView {
         let presenter = ExtraDetailsPresenter(viewModel: viewModel)
         return ExtraDetailsView(presenter: presenter)
@@ -31,7 +34,8 @@ extension ExtraDetailsView {
 }
 
 let mockViewModels: [ExtraDetailsViewModel] = [
-    .init(title: "Cabernet Sauvignon",
+    .init(id: UUID(),
+          title: "Cabernet Sauvignon",
           pieChartViewModels: [
             PieChartViewModel(value: 2, name: "Australia", color: .blue),
             PieChartViewModel(value: 3, name: "US", color: .green),

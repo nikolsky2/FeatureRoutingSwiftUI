@@ -54,11 +54,11 @@ struct DetailsView: View {
             .padding()
         }
         .navigationTitle("Details")
-        .toolbar {
-            presenter.makeExtraDetailsView(viewModel: presenter.viewModel) {
-                Text("Show Regions")
-            }
-        }
+//        .toolbar {
+//            presenter.makeExtraDetailsView(viewModel: presenter.viewModel) {
+//                Text("Show Regions")
+//            }
+//        }
     }
 }
 
@@ -73,7 +73,8 @@ extension DetailsView {
 // MARK: - PreviewProvider
 
 let mockViewModels: [DetailsViewModel] = [
-    .init(title: "Cabernet Sauvignon",
+    .init(id: UUID(),
+          title: "Cabernet Sauvignon",
           subtitle: "The most famous red wine grape variety on Earth")
 ]
 

@@ -13,7 +13,7 @@ import ExtraDetailsKit
 
 enum RootViewModel {
     case loading
-    case loaded([GrapeViewModel])
+    case loaded([DataViewModel])
 
     var isLoading: Bool {
         if case .loading = self {
@@ -24,26 +24,22 @@ enum RootViewModel {
     }
 }
 
-struct GrapeViewModel: Hashable, Identifiable {
+struct DataViewModel: Hashable, Identifiable {
+    let id: UUID
+    let title: String
+    let subtitle: String
+}
+
+private
+struct Grape: Hashable, Identifiable {
     var id = UUID()
     let title: String
     let subtitle: String
     let pieChartViewModels: [PieChartViewModel]
 }
 
-extension GrapeViewModel {
-    func makeDetailsViewModel() -> DetailsKit.DetailsViewModel {
-        .init(title: title, subtitle: subtitle)
-    }
-}
-
-extension GrapeViewModel {
-    func makeExtraDetailsViewModel() -> ExtraDetailsKit.ExtraDetailsViewModel {
-        .init(title: title, pieChartViewModels: pieChartViewModels)
-    }
-}
-
-let mockViewModels: [GrapeViewModel] = [
+private
+let rawData: [Grape] = [
     .init(title: "Cabernet Sauvignon",
           subtitle: "The most famous red wine grape variety on Earth",
           pieChartViewModels: [
@@ -67,9 +63,31 @@ let mockViewModels: [GrapeViewModel] = [
           ])
 ]
 
+private
+extension Grape {
+    func makeDetailsViewModel() -> DetailsKit.DetailsViewModel {
+        .init(id: id, title: title, subtitle: subtitle)
+    }
+}
+
+private
+extension Grape {
+    func makeExtraDetailsViewModel() -> ExtraDetailsKit.ExtraDetailsViewModel {
+        .init(id: id, title: title, pieChartViewModels: pieChartViewModels)
+    }
+}
+
+private
+extension Grape {
+    func makeDataViewModel() -> DataViewModel {
+        .init(id: id, title: title, subtitle: subtitle)
+    }
+}
+
+private
 extension Array where Element == RootModel {
-    func makeViewModels() -> [GrapeViewModel] {
-        mockViewModels
+    func makeViewModels() -> [DataViewModel] {
+        rawData.map { $0.makeDataViewModel() }
     }
 }
 
@@ -77,6 +95,7 @@ enum PresentationStyle {
     case detailsStack
     case detailsModally
     case extraDetailsModally
+    case extraDetailsStack
 
     var title: String {
         switch self {
@@ -84,6 +103,8 @@ enum PresentationStyle {
             return "Push Details on Stack"
         case .detailsModally:
             return "Show Details Modally"
+        case .extraDetailsStack:
+            return "Push ExtraDetails on Stack"
         case .extraDetailsModally:
             return "Show ExtraDetails Modally"
         }
@@ -115,22 +136,50 @@ class RootPresenter: ObservableObject {
         }
     }
 
-    func makeDestinationView<Label: View>(viewModel: GrapeViewModel,
+    func makeDestinationView<Label: View>(viewModel: DataViewModel,
                                           @ViewBuilder label: () -> Label) -> AnyView {
 
         // Dynamic routing is here
 
-        switch presentationStyle {
-        case .detailsStack:
-            return router.makePushDetailsView(viewModel: viewModel.makeDetailsViewModel(),
-                                              dismiss: {
-                self.path.removeLast(self.path.count)
-            },
-                                              label: label)
-        case .detailsModally:
-            return router.makeModalDetailsView(viewModel: viewModel.makeDetailsViewModel(), label: label)
-        case .extraDetailsModally:
-            return router.makeModalExtraDetailsView(viewModel: viewModel.makeExtraDetailsViewModel(), label: label)
+        NBNavigationLink(value: viewModel) {
+            label()
+            .nbNavigationDestination(for: DataViewModel.self, destination: { value in
+                switch self.presentationStyle {
+                case .detailsStack:
+                    DetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeDetailsViewModel(),
+                                     dismiss: {})
+                case .extraDetailsStack:
+                    ExtraDetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeExtraDetailsViewModel())
+                case .detailsModally:
+                    fatalError()
+                case .extraDetailsModally:
+                    fatalError()
+                }
+            })
+            .nbNavigationDestination(for: DetailsKit.DetailsViewModel.self, destination: { value in
+                DetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeDetailsViewModel(),
+                                 dismiss: {})
+            })
+            .nbNavigationDestination(for: ExtraDetailsKit.ExtraDetailsViewModel.self, destination: { value in
+                ExtraDetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeExtraDetailsViewModel())
+            })
         }
+        .anyView
+    }
+
+    func pushView() {
+        path.append(rawData[0].makeDetailsViewModel())
+    }
+
+    func pushSeveralViews() {
+//        path.append(rawData[0].makeDetailsViewModel())
+//        path.append(rawData[1].makeExtraDetailsViewModel())
+//        path.append(rawData[2].makeDetailsViewModel())
+
+//        $path. withDelaysIfUnsupported {
+//            $0.append(mockViewModels[0].makeDetailsViewModel())
+//            $0.append(mockViewModels[1].makeExtraDetailsViewModel())
+//            $0.append(mockViewModels[2].makeDetailsViewModel())
+//        }
     }
 }

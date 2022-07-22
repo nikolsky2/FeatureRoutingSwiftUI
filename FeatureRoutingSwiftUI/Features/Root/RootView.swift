@@ -37,12 +37,42 @@ struct RootView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
+
+/////////////////////////////////
+/*
+                        NBNavigationLink(value: viewModel) {
+                            VStack(alignment: .leading) {
+                                Text(viewModel.title)
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.primary)
+                                    .lineLimit(3)
+                                Text(viewModel.subtitle)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            .nbNavigationDestination(for: DetailsViewModel.self, destination: { value in
+                                DetailsView.make(viewModel: value, dismiss: {})
+                            })
+                            .nbNavigationDestination(for: ExtraDetailsViewModel.self, destination: { value in
+                                ExtraDetailsView.make(viewModel: value)
+                            })
+                            .nbNavigationDestination(for: GrapeViewModel.self, destination: { value in
+                                //                                DetailsView.make(viewModel: value.makeDetailsViewModel(), dismiss: {})
+                                ExtraDetailsView.make(viewModel: value.makeExtraDetailsViewModel())
+                            })
+                        }
+ */
+/////////////////////////////////
+
+
                     }
                 }
                 .navigationTitle("Grapes")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu(presenter.presentationStyle.title) {
+
+                            // TODO: ForEach
                             Button(action: {
                                 presenter.presentationStyle = .detailsStack
                             }) {
@@ -56,6 +86,12 @@ struct RootView: View {
                                 if presenter.presentationStyle == .detailsModally { Image(systemName: "checkmark") }
                             }
                             Button(action: {
+                                presenter.presentationStyle = .extraDetailsStack
+                            }) {
+                                Text(PresentationStyle.extraDetailsStack.title)
+                                if presenter.presentationStyle == .extraDetailsStack { Image(systemName: "checkmark") }
+                            }
+                            Button(action: {
                                 presenter.presentationStyle = .extraDetailsModally
                             }) {
                                 Text(PresentationStyle.extraDetailsModally.title)
@@ -64,18 +100,14 @@ struct RootView: View {
                             Divider()
                             Text("Deep linking")
                             Button(action: {
-                                presenter.path.append(mockViewModels[0])
+                                presenter.pushView()
                             }) {
-                                Text("Push 1 Screen Programatically")
+                                Text("Push 1 Details Programatically")
                             }
                             Button(action: {
-                                $presenter.path.withDelaysIfUnsupported {
-                                    $0.append(mockViewModels[0])
-                                    $0.append(mockViewModels[1])
-                                    $0.append(mockViewModels[2])
-                                }
+                                presenter.pushSeveralViews()
                             }) {
-                                Text("Push All screens Programatically")
+                                Text("Push 2 Details and 1 Extra Details Programatically")
                             }
                         }
                     }
