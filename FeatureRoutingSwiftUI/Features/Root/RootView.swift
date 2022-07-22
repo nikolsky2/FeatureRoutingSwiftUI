@@ -24,47 +24,15 @@ struct RootView: View {
                     Spacer()
                 }
             case .loaded(let viewModels):
-                List {
-                    ForEach(viewModels) { viewModel in
-                        presenter.makeDestinationView(viewModel: viewModel) {
-                            VStack(alignment: .leading) {
-                                Text(viewModel.title)
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.primary)
-                                    .lineLimit(3)
-                                Text(viewModel.subtitle)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-
-/////////////////////////////////
-/*
-                        NBNavigationLink(value: viewModel) {
-                            VStack(alignment: .leading) {
-                                Text(viewModel.title)
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.primary)
-                                    .lineLimit(3)
-                                Text(viewModel.subtitle)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            .nbNavigationDestination(for: DetailsViewModel.self, destination: { value in
-                                DetailsView.make(viewModel: value, dismiss: {})
-                            })
-                            .nbNavigationDestination(for: ExtraDetailsViewModel.self, destination: { value in
-                                ExtraDetailsView.make(viewModel: value)
-                            })
-                            .nbNavigationDestination(for: GrapeViewModel.self, destination: { value in
-                                //                                DetailsView.make(viewModel: value.makeDetailsViewModel(), dismiss: {})
-                                ExtraDetailsView.make(viewModel: value.makeExtraDetailsViewModel())
-                            })
-                        }
- */
-/////////////////////////////////
-
-
+                presenter.makeNavigationView(viewModels: viewModels) { viewModel in
+                    VStack(alignment: .leading) {
+                        Text(viewModel.title)
+                            .font(.system(size: 20))
+                            .foregroundColor(.primary)
+                            .lineLimit(3)
+                        Text(viewModel.subtitle)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
                 }
                 .navigationTitle("Grapes")

@@ -136,38 +136,54 @@ class RootPresenter: ObservableObject {
         }
     }
 
-    func makeDestinationView<Label: View>(viewModel: DataViewModel,
-                                          @ViewBuilder label: () -> Label) -> AnyView {
+    /**
+     https://developer.apple.com/documentation/swiftui/view/navigationdestination(for:destination:)
 
-        // Dynamic routing is here
-
-        NBNavigationLink(value: viewModel) {
-            label()
-            .nbNavigationDestination(for: DataViewModel.self, destination: { value in
-                switch self.presentationStyle {
-                case .detailsStack:
-                    DetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeDetailsViewModel(),
-                                     dismiss: {
-                        self.popToRoot()
-                    })
-                case .extraDetailsStack:
-                    ExtraDetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeExtraDetailsViewModel())
-                case .detailsModally:
-                    fatalError()
-                case .extraDetailsModally:
-                    fatalError()
+     NavigationStack {
+         List {
+             NavigationLink("Mint", value: Color.mint)
+             NavigationLink("Pink", value: Color.pink)
+             NavigationLink("Teal", value: Color.teal)
+         }
+         .navigationDestination(for: Color.self) { color in
+             ColorDetail(color: color)
+         }
+         .navigationTitle("Colors")
+     }
+     */
+    func makeNavigationView<Label: View>(viewModels: [DataViewModel],
+                                          @ViewBuilder label: @escaping (DataViewModel) -> Label) -> AnyView {
+        List {
+            ForEach(viewModels) { viewModel in
+                NBNavigationLink(value: viewModel) {
+                    label(viewModel)
                 }
-            })
-            .nbNavigationDestination(for: DetailsKit.DetailsViewModel.self, destination: { value in
+            }
+        }
+        .nbNavigationDestination(for: DataViewModel.self, destination: { value in
+            switch self.presentationStyle {
+            case .detailsStack:
                 DetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeDetailsViewModel(),
                                  dismiss: {
                     self.popToRoot()
                 })
-            })
-            .nbNavigationDestination(for: ExtraDetailsKit.ExtraDetailsViewModel.self, destination: { value in
+            case .extraDetailsStack:
                 ExtraDetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeExtraDetailsViewModel())
+            case .detailsModally:
+                fatalError()
+            case .extraDetailsModally:
+                fatalError()
+            }
+        })
+        .nbNavigationDestination(for: DetailsKit.DetailsViewModel.self, destination: { value in
+            DetailsView.make(viewModel: value,
+                             dismiss: {
+                self.popToRoot()
             })
-        }
+        })
+        .nbNavigationDestination(for: ExtraDetailsKit.ExtraDetailsViewModel.self, destination: { value in
+            ExtraDetailsView.make(viewModel: value)
+        })
         .anyView
     }
 
