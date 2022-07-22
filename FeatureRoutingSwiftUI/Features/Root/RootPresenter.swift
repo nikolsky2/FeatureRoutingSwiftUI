@@ -147,7 +147,9 @@ class RootPresenter: ObservableObject {
                 switch self.presentationStyle {
                 case .detailsStack:
                     DetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeDetailsViewModel(),
-                                     dismiss: {})
+                                     dismiss: {
+                        self.popToRoot()
+                    })
                 case .extraDetailsStack:
                     ExtraDetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeExtraDetailsViewModel())
                 case .detailsModally:
@@ -158,7 +160,9 @@ class RootPresenter: ObservableObject {
             })
             .nbNavigationDestination(for: DetailsKit.DetailsViewModel.self, destination: { value in
                 DetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeDetailsViewModel(),
-                                 dismiss: {})
+                                 dismiss: {
+                    self.popToRoot()
+                })
             })
             .nbNavigationDestination(for: ExtraDetailsKit.ExtraDetailsViewModel.self, destination: { value in
                 ExtraDetailsView.make(viewModel: rawData.first { $0.id == value.id }!.makeExtraDetailsViewModel())
@@ -181,5 +185,9 @@ class RootPresenter: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.path.append(rawData[2].makeDetailsViewModel())
         }
+    }
+
+    private func popToRoot() {
+        path.removeLast(path.count)
     }
 }
