@@ -172,14 +172,14 @@ class RootPresenter: ObservableObject {
     }
 
     func pushSeveralViews() {
-//        path.append(rawData[0].makeDetailsViewModel())
-//        path.append(rawData[1].makeExtraDetailsViewModel())
-//        path.append(rawData[2].makeDetailsViewModel())
+        path.append(rawData[0].makeDetailsViewModel())
 
-//        $path. withDelaysIfUnsupported {
-//            $0.append(mockViewModels[0].makeDetailsViewModel())
-//            $0.append(mockViewModels[1].makeExtraDetailsViewModel())
-//            $0.append(mockViewModels[2].makeDetailsViewModel())
-//        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.path.append(rawData[1].makeExtraDetailsViewModel())
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.path.append(rawData[2].makeDetailsViewModel())
+        }
     }
 }
