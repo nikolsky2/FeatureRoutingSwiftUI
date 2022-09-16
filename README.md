@@ -16,24 +16,35 @@ Which are imported by Root feature with **dynamic presentation** based on the sw
 
 ![project](project_structure.png)
 
+---
+
 ### iOS 14.5 using [NavigationBackport](https://github.com/johnpatrickmorgan/NavigationBackport)
 
 This package uses the navigation APIs available in older SwiftUI versions (such as `NavigationView` and `NavigationLink`) to recreate the new `NavigationStack` APIs introduced in WWDC22, so that you can start targeting those APIs on older versions of iOS, tvOS and watchOS.
 
 ✅ `NavigationStack` -> `NBNavigationStack`
+
 ✅ `NavigationLink` -> `NBNavigationLink`
+
 ✅ `NavigationPath` -> `NBNavigationPath`
+
 ✅ `navigationDestination` -> `nbNavigationDestination`
+
 ✅ `NavigationPath.CodableRepresentation` -> `NBNavigationPath.CodableRepresentation`
 
 
+
 You can migrate to these APIs now, and when you eventually bump your deployment target to iOS 16, you can remove this library and easily migrate to its SwiftUI equivalent. `NavigationStack`'s full API is replicated, so you can initialise an `NBNavigationStack` with a binding to an `Array`, with a binding to a `NBNavigationPath` binding, or with no binding at all.
+
+---
 
 ### iOS 16 using native iOS navigation [NavigationStack](https://developer.apple.com/documentation/swiftui/navigationstack/)
 
 - [WWDC 2022: The SwiftUI cookbook for navigation](https://developer.apple.com/videos/play/wwdc2022/10054/)
 
 `NavigationStack` allows separating the destination view from the current visible view, by using the .navigationDestination modifier. It's finally a way of doing a clean coordinator.
+
+---
 
 ### Router implementation
 
@@ -92,6 +103,8 @@ extension RootRouter: RootRouting {
 
 ![Presentation flow](FeatureRoutingSwiftUI.png)
 
+## Demo
+![Demo](demo.gif)
 
 ## External resources
 
